@@ -11,15 +11,19 @@ import android.widget.Toast;
 import com.example.pc_3.uploader.R;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.entity.mime.content.FileBody;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.logging.Logger;
 
 import api.ApiWrapper;
 import api.Endpoints;
 import api.Params;
 import api.Request;
 import api.Token;
+import classes.MultipartUtility;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,6 +76,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void upload2() {
+        String charset = "UTF-8";
+        File uploadFile = new File(Constants.PATH3);
+        String requestURL = "https://api.soundcloud.com/tracks";
+
+        try {
+            MultipartUtility multipart = new MultipartUtility(requestURL, charset);
+
+            multipart.addHeaderField("Authorization", "OAuth " + token.toString());
+            multipart.addHeaderField("Accept", "application/json");
+
+            multipart.addFormField(Params.Track.TITLE, "Cool track");
+            multipart.addFormField(Params.Track.TAG_LIST, "Some tag");
+//            multipart.addFormField("access_token", token.toString());
+            multipart.addFormField(Constants.CLIENT_ID, Constants.CLIENT_ID);
+
+            multipart.addFilePart(Params.Track.ASSET_DATA, uploadFile);
+
+            List<String> response = multipart.finish();
+
+            //System.out.println("SERVER REPLIED:");
+
+            Log.d(Constants.LOG_TAG, response.toString());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     View.OnClickListener clickListener = new View.OnClickListener() {
 
         @Override
@@ -97,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 wrapper = new ApiWrapper(Constants.CLIENT_ID, Constants.CLIENT_SECRET, null, null);
                 token = wrapper.login(Constants.USER_NAME, Constants.USER_PASSWORD);
 
-                upload();
+                upload2();
 
             } catch (IOException e){
                 e.printStackTrace();
