@@ -13,6 +13,8 @@ public class Constants {
     public static final String API_TOKEN_KEY = "api_key";
     public static final String ACCESS_TOKEN = "oauth_token";
     public static final String PATH = Environment.getExternalStorageDirectory().toString() + "/Music/record.3gpp";
+    public static final String PATH2 = Environment.getExternalStorageDirectory().toString() + "/";
+    public static final String PATH3 = Environment.getExternalStorageDirectory().toString() + "/Music/markus_dambrosi_feat_marga_gonzales-short_dick_man_radio_edit.mp3";
 
     public static final String USER_NAME = "icomm@ukr.net";
     public static final String USER_PASSWORD = "fqrjvv0107";

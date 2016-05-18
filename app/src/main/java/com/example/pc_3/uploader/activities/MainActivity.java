@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ApiWrapper wrapper;
     private File file;
 
-    private int resultCode = 0;
+    private int resultCode = -1;
     private String errorString;
 
     @Override
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             Log.d(Constants.LOG_TAG, "Uploading in background");
 
-            file = new File(Constants.PATH);
+            file = new File(Constants.PATH3);
             file.setReadable(true, false);
 
             HttpResponse response = wrapper.post(Request.to(Endpoints.TRACKS)
